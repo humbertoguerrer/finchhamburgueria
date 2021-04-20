@@ -1,15 +1,11 @@
 package com.hgn.finchhamburgueria.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Pedido {
@@ -18,19 +14,22 @@ public class Pedido {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 
-	@OneToMany(mappedBy = "pedido")
-	private List<Lanche> lanches = new ArrayList<>();
+	private Double precoTotal;
+	
+	@OneToOne(mappedBy = "pedido")
+	private Lanche lanche;
 
 	public Pedido() {
 	}
 
-	public Pedido(Long id, Cliente cliente) {
+	public Pedido(Long id, Cliente cliente, Lanche lanche) {
 		this.id = id;
 		this.cliente = cliente;
+		this.lanche = lanche;
 	}
 
 	public Long getId() {
@@ -49,12 +48,20 @@ public class Pedido {
 		this.cliente = cliente;
 	}
 
-	public List<Lanche> getLanches() {
-		return lanches;
+	public Double getPrecoTotal() {
+		return precoTotal;
 	}
 
-	public void setLanches(List<Lanche> lanches) {
-		this.lanches = lanches;
+	public void setPrecoTotal(Double preco) {
+		this.precoTotal = lanche.getPreco();
+	}
+
+	public Lanche getLanche() {
+		return lanche;
+	}
+
+	public void setLanche(Lanche lanche) {
+		this.lanche = lanche;
 	}
 
 	@Override

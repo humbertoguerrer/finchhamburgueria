@@ -1,14 +1,11 @@
 package com.hgn.finchhamburgueria.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Cliente {
@@ -18,9 +15,10 @@ public class Cliente {
 	private Long id;
 	private String nome;
 	private String cpf;
-	
-	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-	List<Pedido> pedidos = new ArrayList<>();
+	private Double conta;
+
+	@OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
+	private Pedido pedido;
 
 	public Cliente() {
 	}
@@ -55,12 +53,20 @@ public class Cliente {
 		this.cpf = cpf;
 	}
 
-	public List<Pedido> getPedido() {
-		return pedidos;
+	public Double getConta() {
+		return conta;
 	}
 
-	public void setPedido(List<Pedido> pedidos) {
-		this.pedidos = pedidos;
+	public void setConta(Double precoTotal) {
+		this.conta = pedido.getPrecoTotal();
+	}
+
+	public Pedido getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
 	}
 
 	@Override

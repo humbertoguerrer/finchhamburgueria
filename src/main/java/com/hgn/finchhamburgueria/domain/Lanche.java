@@ -10,25 +10,22 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Lanche {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
 	private Double preco;
-	
-	@ManyToOne
+
+	@OneToOne
 	private Pedido pedido;
 
-	  @ManyToMany
-	  @JoinTable(
-	      name = "lanche_ingredientes",
-	      joinColumns = @JoinColumn(name = "lanche_id"),
-	      inverseJoinColumns = @JoinColumn(name = "ingredienet_id"))
+	@ManyToMany
+	@JoinTable(name = "lanche_ingredientes", joinColumns = @JoinColumn(name = "lanche_id"), inverseJoinColumns = @JoinColumn(name = "ingredienet_id"))
 	private List<Ingrediente> ingredientes = new ArrayList<>();
 
 	public Lanche() {

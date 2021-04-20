@@ -39,6 +39,11 @@ public class FinchhamburgueriaApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
+		Cliente gustavo = new Cliente(null, "Gustavo", "123123");
+		Cliente ana = new Cliente(null, "ana", "456789");
+
+
+		
 		Ingrediente alface = new Ingrediente(null, "alface", 0.40);
 		Ingrediente bacon = new Ingrediente(null, "bacon", 2.00);
 		Ingrediente carne = new Ingrediente(null, "carne", 0.80);
@@ -100,32 +105,15 @@ public class FinchhamburgueriaApplication implements CommandLineRunner {
 
 		//////////////////////////////////////
 
-		List<Lanche> lanches = new ArrayList<>();
-		List<Pedido> pedidos = new ArrayList<>();
-
-		Cliente gustavo = new Cliente(null, "Gustavo", "123123");
-		Pedido pedidoGustavo = new Pedido(null, gustavo);
-		lanches.add(xEggBacon);
-		pedidoGustavo.setLanches(lanches);
-		pedidos.add(pedidoGustavo);
-		gustavo.setPedido(pedidos);
+		Pedido pedidoGustavo = new Pedido(null, gustavo, xEggBacon);
 		clienteRepository.save(gustavo);
 		pedidoRepository.save(pedidoGustavo);
-		lanches.removeAll(lanches);
-		pedidos.removeAll(pedidos);
 
 		//////////////////////////////////////
 
-		Cliente ana = new Cliente(null, "ana", "456789");
-		Pedido pedidoAna = new Pedido(null, ana);
-		lanches.add(xEgg);
-		pedidoAna.setLanches(lanches);
-		pedidos.add(pedidoAna);
-		ana.setPedido(pedidos);
+		Pedido pedidoAna = new Pedido(null, ana, xEgg);
 		clienteRepository.save(ana);
 		pedidoRepository.save(pedidoAna);
-		lanches.removeAll(lanches);
-		pedidos.removeAll(pedidos);
 
 		//////////////////////////////////////
 
