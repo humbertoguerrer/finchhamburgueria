@@ -4,11 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
 public class Lanche {
-
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
 	private Double preco;
@@ -16,16 +24,19 @@ public class Lanche {
 	@ManyToOne
 	private Pedido pedido;
 
+	  @ManyToMany
+	  @JoinTable(
+	      name = "lanche_ingredientes",
+	      joinColumns = @JoinColumn(name = "lanche_id"),
+	      inverseJoinColumns = @JoinColumn(name = "ingredienet_id"))
 	private List<Ingrediente> ingredientes = new ArrayList<>();
 
 	public Lanche() {
 	}
 
-	public Lanche(Long id, String nome, Double preco, Pedido pedido) {
+	public Lanche(Long id, String nome) {
 		this.id = id;
 		this.nome = nome;
-		this.preco = preco;
-		this.pedido = pedido;
 	}
 
 	public Long getId() {
@@ -48,8 +59,12 @@ public class Lanche {
 		return preco;
 	}
 
-	public void setPreco(Double preco) {
-		this.preco = preco;
+	public void setPreco(List<Ingrediente> ingredientes) {
+		Double soma = 0.0;
+		for (Ingrediente ingrediente : ingredientes) {
+			soma += ingrediente.getPreco();
+		}
+		this.preco = soma;
 	}
 
 	public Pedido getPedido() {
