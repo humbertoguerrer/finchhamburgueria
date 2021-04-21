@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Pedido {
 
@@ -14,13 +16,14 @@ public class Pedido {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 
 	private Double precoTotal;
-	
-	@OneToOne(mappedBy = "pedido")
+
+	@OneToOne(mappedBy = "pedido", optional = false)
 	private Lanche lanche;
 
 	public Pedido() {
