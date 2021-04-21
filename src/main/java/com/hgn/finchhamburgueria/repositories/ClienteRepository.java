@@ -6,11 +6,10 @@ import org.springframework.stereotype.Repository;
 import com.hgn.finchhamburgueria.domain.Cliente;
 
 @Repository
-public interface ClienteRepository extends JpaRepository<Cliente, Long>{
-	
+public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
+
 	Cliente findClienteByNome(String nome);
 
-	boolean existsById(Long id);
+	boolean existsById(Integer id);
 
-	
 }

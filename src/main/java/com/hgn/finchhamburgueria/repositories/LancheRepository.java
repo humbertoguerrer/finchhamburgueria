@@ -6,9 +6,9 @@ import org.springframework.stereotype.Repository;
 import com.hgn.finchhamburgueria.domain.Lanche;
 
 @Repository
-public interface LancheRepository extends JpaRepository<Lanche, String>{
+public interface LancheRepository extends JpaRepository<Lanche, Integer>{
 	
-	Lanche findLancheById(Long id);
+	Lanche findLancheById(Integer id);
 	
 	Lanche findLancheByNome(String nome);
 

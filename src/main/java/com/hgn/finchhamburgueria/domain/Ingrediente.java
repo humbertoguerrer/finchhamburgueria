@@ -1,5 +1,6 @@
 package com.hgn.finchhamburgueria.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -8,12 +9,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 @Entity
-public class Ingrediente {
+public class Ingrediente implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
+	
 	private String nome;
 	private Double preco;
 	
@@ -24,17 +29,18 @@ public class Ingrediente {
 	public Ingrediente(){
 	}
 
-	public Ingrediente(Long id, String nome, Double preco) {
+	@JsonCreator
+	public Ingrediente(Integer id, String nome, Double preco) {
 		this.id = id;
 		this.nome = nome;
 		this.preco = preco;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

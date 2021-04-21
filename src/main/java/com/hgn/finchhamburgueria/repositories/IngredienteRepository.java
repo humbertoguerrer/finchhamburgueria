@@ -6,10 +6,10 @@ import org.springframework.stereotype.Repository;
 import com.hgn.finchhamburgueria.domain.Ingrediente;
 
 @Repository
-public interface IngredienteRepository extends JpaRepository<Ingrediente, String>{
+public interface IngredienteRepository extends JpaRepository<Ingrediente, Integer>{
 
-	Ingrediente findIngredienteById(Long id);
+	Ingrediente findIngredienteById(Integer id);
 	
-	Ingrediente findIngregredienteByNome(String nome);
-	
+	Ingrediente findIngredienteByNome(String nome);
+
 }

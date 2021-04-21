@@ -1,8 +1,5 @@
 package com.hgn.finchhamburgueria.controllers;
 
-import java.util.List;
-import java.util.Optional;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,58 +16,40 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hgn.finchhamburgueria.domain.Cliente;
-import com.hgn.finchhamburgueria.repositories.ClienteRepository;
+import com.hgn.finchhamburgueria.services.ClienteService;
 
 @RestController
 @RequestMapping(value = "/clientes")
 public class ClienteController {
 
 	@Autowired
-	private ClienteRepository clienteRepository;
+	private ClienteService clienteService;
 
-	@RequestMapping(method = RequestMethod.GET)
-	public List<Cliente> findAll() {
-		return clienteRepository.findAll();
-	}
-
-	@RequestMapping(path = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Cliente> buscar(@PathVariable Long id) {
-		Optional<Cliente> cliente = clienteRepository.findById(id);
-		if (cliente.isPresent()) {
-			return ResponseEntity.ok(cliente.get());
-		}
-		return ResponseEntity.notFound().build();
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public ResponseEntity<Cliente> buscar(@PathVariable Integer id) {
+		Cliente cliente = clienteService.buscarPorId(id);
+		return ResponseEntity.ok().body(cliente);
 	}
 
 	@RequestMapping(path = "nome/{nome}", method = RequestMethod.GET)
-	public Cliente findClienteByNome(@PathVariable String nome) {
-		return clienteRepository.findClienteByNome(nome);
+	public Cliente buscarClienteNome(@PathVariable String nome) {
+		return clienteService.buscarPorNome(nome);
 	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Cliente salvar(@Valid @RequestBody Cliente cliente) {
-		return clienteRepository.save(cliente);
+		return clienteService.salvar(cliente);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Cliente> atualizar(@Valid @PathVariable Long id, @RequestBody Cliente cliente) {
-		if (!clienteRepository.existsById(id)) {
-			return ResponseEntity.notFound().build();
-		}
-		cliente.setId(id);
-		cliente = clienteRepository.save(cliente);
-
+	public ResponseEntity<Cliente> atualizar(@Valid @PathVariable Integer id, @RequestBody Cliente cliente) {
+		clienteService.atualizar(cliente);
 		return ResponseEntity.ok(cliente);
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> apagar(@PathVariable Long id) {
-		if (!clienteRepository.existsById(id)) {
-			return ResponseEntity.notFound().build();
-		}
-		clienteRepository.deleteById(id);
-
+	public ResponseEntity<Void> apagar(@PathVariable Integer id) {
 		return ResponseEntity.noContent().build();
 	}
 

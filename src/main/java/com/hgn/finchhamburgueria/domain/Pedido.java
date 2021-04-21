@@ -1,5 +1,8 @@
 package com.hgn.finchhamburgueria.domain;
 
+import java.io.Serializable;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,36 +13,38 @@ import javax.persistence.OneToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Pedido {
+public class Pedido implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
+
+	private Double precoPedido;
 
 	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 
-	private Double precoTotal;
-
-	@OneToOne(mappedBy = "pedido", optional = false)
+	@Column(length = 600)
 	private Lanche lanche;
 
 	public Pedido() {
 	}
 
-	public Pedido(Long id, Cliente cliente, Lanche lanche) {
+	public Pedido(Integer id, Double precoPedido, Cliente cliente, Lanche lanche) {
 		this.id = id;
+		this.precoPedido = precoPedido;
 		this.cliente = cliente;
 		this.lanche = lanche;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -51,12 +56,12 @@ public class Pedido {
 		this.cliente = cliente;
 	}
 
-	public Double getPrecoTotal() {
-		return precoTotal;
+	public Double getPrecoPedido() {
+		return precoPedido;
 	}
 
-	public void setPrecoTotal(Double preco) {
-		this.precoTotal = lanche.getPreco();
+	public void setPrecoPedido(Double precoPedido) {
+		this.precoPedido = precoPedido;
 	}
 
 	public Lanche getLanche() {
@@ -91,5 +96,4 @@ public class Pedido {
 			return false;
 		return true;
 	}
-
 }

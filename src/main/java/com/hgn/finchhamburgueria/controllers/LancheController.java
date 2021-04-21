@@ -2,35 +2,56 @@ package com.hgn.finchhamburgueria.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hgn.finchhamburgueria.DTO.NovoLancheDTO;
 import com.hgn.finchhamburgueria.domain.Lanche;
-import com.hgn.finchhamburgueria.repositories.LancheRepository;
+import com.hgn.finchhamburgueria.services.LancheService;
 
 @RestController
 @RequestMapping(value = "/lanches")
 public class LancheController {
 
 	@Autowired
-	private LancheRepository lancheRepository;
+	private LancheService lancheService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Lanche> findAll() {
-		return lancheRepository.findAll();
+		return lancheService.listarTodos();
 	}
 
-	@RequestMapping(path = "/{id}", method = RequestMethod.GET)
-	public Lanche findLancheById(@PathVariable Long id) {
-		return lancheRepository.findLancheById(id);
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public ResponseEntity<Lanche> buscar(@PathVariable Integer id) {
+		Lanche lanche = lancheService.buscarPorId(id);
+		return ResponseEntity.ok().body(lanche);
 	}
 
-	@RequestMapping(path = "nome/{nome}", method = RequestMethod.GET)
-	public Lanche findClientByNome(@PathVariable String nome) {
-		return lancheRepository.findLancheByNome(nome);
+	@RequestMapping(value = "nome/{nome}", method = RequestMethod.GET)
+	public Lanche buscarLancheNome(@PathVariable String nome) {
+		return lancheService.buscarPorNome(nome);
 	}
 
+	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
+	public Lanche salvar(@Valid @RequestBody NovoLancheDTO lanche) {
+		Lanche novoLanche = lancheService.novoLanche(lanche);
+		return lancheService.salvarLanche(novoLanche);
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> apagarLanche(@PathVariable Integer id) {
+		return ResponseEntity.noContent().build();
+	}
 }

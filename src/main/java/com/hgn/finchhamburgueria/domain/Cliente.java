@@ -1,6 +1,7 @@
 package com.hgn.finchhamburgueria.domain;
 
-import javax.persistence.CascadeType;
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,36 +10,37 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-public class Cliente {
+public class Cliente implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
+	private Integer id;
+
 	@NotBlank
 	private String nome;
-	
+
 	@NotBlank
 	private String cpf;
 	private Double conta;
 
-	@OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "cliente")
 	private Pedido pedido;
 
 	public Cliente() {
 	}
 
-	public Cliente(Long id, String nome, String cpf) {
+	public Cliente(Integer id, String nome, String cpf) {
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -62,8 +64,8 @@ public class Cliente {
 		return conta;
 	}
 
-	public void setConta(Double precoTotal) {
-		this.conta = pedido.getPrecoTotal();
+	public void setConta(Double precoPedido) {
+		this.conta = pedido.getPrecoPedido();
 	}
 
 	public Pedido getPedido() {
