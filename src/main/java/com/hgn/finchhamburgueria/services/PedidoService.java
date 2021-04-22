@@ -15,36 +15,26 @@ import com.hgn.finchhamburgueria.repositories.PedidoRepository;
 @Service
 public class PedidoService {
 
-	@Autowired
-	private PedidoRepository pedidoRepository;
+  @Autowired private PedidoRepository pedidoRepository;
 
-	public Pedido buscarPorId(Integer id) {
-		Optional<Pedido> optionalPedido = pedidoRepository.findById(id);
-		if (optionalPedido != null) {
-			Pedido pedido = optionalPedido.get();
-			return pedido;
-		}
-		throw new NegocioException("Pedido não cadastrado.");
-	}
+  public Pedido buscarPorId(Integer id) {
+    Optional<Pedido> optionalPedido = pedidoRepository.findById(id);
+    if (optionalPedido != null) {
+      Pedido pedido = optionalPedido.get();
+      return pedido;
+    }
+    throw new NegocioException("Pedido não cadastrado.");
+  }
 
-	public Pedido salvarPedido(Pedido pedido) {
-		return pedidoRepository.save(pedido);
-	}
+  public Pedido salvarPedido(Pedido pedido) {
+    return pedidoRepository.save(pedido);
+  }
 
-	public Pedido novoPedido(NovoPedidoDTO novoPedido) {
-		Cliente cliente = new Cliente(novoPedido.getClienteId(), null, null);
-		Lanche lanche = new Lanche(novoPedido.getLancheId(), null, null);
-		Pedido pedido = new Pedido(null, novoPedido.getPrecoPedido(), cliente, lanche);
-		return pedido;
-
-	}
-
-	public void apagar(Pedido pedido) {
-		if (!pedidoRepository.existsById(pedido.getId())) {
-			throw new NegocioException("Pedido não encontrado para deletar.");
-		}
-		pedidoRepository.deleteById(pedido.getId());
-		return;
-	}
-
+  public void apagar(Pedido pedido) {
+    if (!pedidoRepository.existsById(pedido.getId())) {
+      throw new NegocioException("Pedido não encontrado para deletar.");
+    }
+    pedidoRepository.deleteById(pedido.getId());
+    return;
+  }
 }

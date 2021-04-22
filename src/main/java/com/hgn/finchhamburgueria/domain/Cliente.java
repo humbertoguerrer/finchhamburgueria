@@ -1,12 +1,10 @@
 package com.hgn.finchhamburgueria.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
@@ -24,8 +22,8 @@ public class Cliente implements Serializable {
 	private String cpf;
 	private Double conta;
 
-	@OneToOne(mappedBy = "cliente")
-	private Pedido pedido;
+	@OneToMany(mappedBy = "cliente")
+	private List<Pedido> pedidos = new ArrayList<>();
 
 	public Cliente() {
 	}
@@ -64,16 +62,16 @@ public class Cliente implements Serializable {
 		return conta;
 	}
 
-	public void setConta(Double precoPedido) {
-		this.conta = pedido.getPrecoPedido();
+	public void setConta(Double conta) {
+		this.conta = conta;
 	}
 
-	public Pedido getPedido() {
-		return pedido;
+	public List<Pedido> getPedidos() {
+		return pedidos;
 	}
 
-	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 
 	@Override

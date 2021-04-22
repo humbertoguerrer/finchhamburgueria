@@ -43,8 +43,8 @@ public class PedidoController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Pedido salvar(@Valid @RequestBody NovoPedidoDTO pedido) {
-		Pedido novoPedido = pedidoService.novoPedido(pedido);
+	public Pedido salvar(@Valid @RequestBody Pedido pedido) {
+		Pedido novoPedido = pedidoService.salvarPedido(pedido);
 		return pedidoService.salvarPedido(novoPedido);
 	}
 

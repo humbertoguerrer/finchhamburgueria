@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.hgn.finchhamburgueria.domain.Ingrediente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,9 +46,8 @@ public class LancheController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Lanche salvar(@Valid @RequestBody NovoLancheDTO lanche) {
-		Lanche novoLanche = lancheService.novoLanche(lanche);
-		return lancheService.salvarLanche(novoLanche);
+	public Lanche salvar(@Valid @RequestBody Lanche lanche) {
+		return lancheService.salvar(lanche);
 	}
 
 	@DeleteMapping("/{id}")
