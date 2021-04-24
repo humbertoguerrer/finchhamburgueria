@@ -1,7 +1,9 @@
 package com.hgn.finchhamburgueria.services;
 
+import java.util.List;
 import java.util.Optional;
 
+import com.hgn.finchhamburgueria.domain.Ingrediente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,10 @@ public class ClienteService {
 
 	@Autowired
 	private ClienteRepository clienteRepository;
+
+	public List<Cliente> listarTodos() {
+		return clienteRepository.findAll();
+	}
 
 	public Cliente buscarPorId(Integer id) {
 		Optional<Cliente> optionalCliente = clienteRepository.findById(id);
@@ -44,11 +50,8 @@ public class ClienteService {
 		return clienteRepository.save(cliente);
 	}
 
-	public void apagar(Cliente cliente) {
-		if (!clienteRepository.existsById(cliente.getId())) {
-			throw new NegocioException("Cliente não encontrado para deletar.");
-		}
-		clienteRepository.deleteById(cliente.getId());
+	public void apagar(Integer id) {
+		clienteRepository.deleteById(id);
 		return;
 	}
 }

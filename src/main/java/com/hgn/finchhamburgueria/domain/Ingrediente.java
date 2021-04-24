@@ -18,11 +18,11 @@ public class Ingrediente implements Serializable {
   private String nome;
   private Double preco;
 
-  @ManyToMany(cascade = CascadeType.ALL)
+  @ManyToMany()
   @JoinTable(
       name = "lanche_ingredientes",
-      joinColumns = {@JoinColumn(name = "ingrediente_id", referencedColumnName = "id")},
-      inverseJoinColumns = {@JoinColumn(name = "lanche_id", referencedColumnName = "id")})
+      joinColumns = {@JoinColumn(name = "ingrediente_id")},
+      inverseJoinColumns = {@JoinColumn(name = "lanche_id")})
   private List<Lanche> lanche;
 
   public Ingrediente() {}

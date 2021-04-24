@@ -23,6 +23,10 @@ public class FinchhamburgueriaApplication implements CommandLineRunner {
 
   @Autowired private IngredienteRepository ingredienteRepository;
 
+  @Autowired private ClienteRepository clienteRepository;
+
+  @Autowired private PedidoRepository pedidoRepository;
+
   public static void main(String[] args) {
     SpringApplication.run(FinchhamburgueriaApplication.class, args);
   }
@@ -79,5 +83,12 @@ public class FinchhamburgueriaApplication implements CommandLineRunner {
     lancheRepository.save(xEggBacon);
 
     //////////////////////////////////////
+
+    Cliente humberto = new Cliente(null, "Humberto", "8645314");
+    clienteRepository.save(humberto);
+    Pedido pedido = new Pedido(null, humberto);
+    pedido.getLanches().add(xEggBacon);
+    pedido.getLanches().add(xEgg);
+    pedidoRepository.save(pedido);
   }
 }

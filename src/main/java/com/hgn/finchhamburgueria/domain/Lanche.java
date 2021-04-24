@@ -1,5 +1,7 @@
 package com.hgn.finchhamburgueria.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,18 +19,19 @@ public class Lanche implements Serializable {
   private String nome;
   private Double preco;
 
-  @ManyToOne
+  @JsonIgnore
+  @ManyToMany
   @JoinTable(
-          name = "pedido_lanches",
-          joinColumns = {@JoinColumn(name = "lanche_id", referencedColumnName = "id")},
-          inverseJoinColumns = {@JoinColumn(name = "pedido_id", referencedColumnName = "id")})
-  private Pedido pedido;
+      name = "pedido_lanches",
+      joinColumns = {@JoinColumn(name = "lanche_id")},
+      inverseJoinColumns = {@JoinColumn(name = "pedido_id")})
+  private List<Pedido> pedido;
 
   @ManyToMany
   @JoinTable(
       name = "lanche_ingredientes",
-      joinColumns = {@JoinColumn(name = "lanche_id", referencedColumnName = "id")},
-      inverseJoinColumns = {@JoinColumn(name = "ingrediente_id", referencedColumnName = "id")})
+      joinColumns = {@JoinColumn(name = "lanche_id")},
+      inverseJoinColumns = {@JoinColumn(name = "ingrediente_id")})
   private List<Ingrediente> ingredientes = new ArrayList<>();
 
   public Lanche() {}
@@ -66,11 +69,11 @@ public class Lanche implements Serializable {
     this.preco = soma;
   }
 
-  public Pedido getPedido() {
+  public List<Pedido> getPedido() {
     return pedido;
   }
 
-  public void setPedido(Pedido pedido) {
+  public void setPedido(List<Pedido> pedido) {
     this.pedido = pedido;
   }
 

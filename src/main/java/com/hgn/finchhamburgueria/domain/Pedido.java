@@ -18,25 +18,23 @@ public class Pedido implements Serializable {
 
   private Double precoPedido;
 
-//  @JsonIgnore
+  @JsonIgnore
   @ManyToOne
   @JoinColumn(name = "cliente_id")
   private Cliente cliente;
 
-  @OneToMany
+  @ManyToMany
   @JoinTable(
-          name = "pedido_lanches",
-          joinColumns = {@JoinColumn(name = "pedido_id", referencedColumnName = "id")},
-          inverseJoinColumns = {@JoinColumn(name = "lanche_id", referencedColumnName = "id")})
+      name = "pedido_lanches",
+      joinColumns = {@JoinColumn(name = "pedido_id")},
+      inverseJoinColumns = {@JoinColumn(name = "lanche_id")})
   private List<Lanche> lanches = new ArrayList<>();
 
   public Pedido() {}
 
-  public Pedido(Integer id, Double precoPedido, Cliente cliente) {
+  public Pedido(Integer id, Cliente cliente) {
     this.id = id;
-    this.precoPedido = precoPedido;
     this.cliente = cliente;
-    ;
   }
 
   public Integer getId() {
@@ -44,6 +42,7 @@ public class Pedido implements Serializable {
   }
 
   public void setId(Integer id) {
+
     this.id = id;
   }
 

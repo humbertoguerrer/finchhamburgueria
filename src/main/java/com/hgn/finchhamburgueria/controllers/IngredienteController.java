@@ -24,41 +24,39 @@ import com.hgn.finchhamburgueria.services.IngredienteService;
 @RequestMapping(value = "/ingredientes")
 public class IngredienteController {
 
-	@Autowired
-	private IngredienteService ingredienteService;
+  @Autowired private IngredienteService ingredienteService;
 
-	@RequestMapping(method = RequestMethod.GET)
-	public List<Ingrediente> findAll() {
-		return ingredienteService.listarTodos();
-	}
+  @RequestMapping(method = RequestMethod.GET)
+  public List<Ingrediente> findAll() {
+    return ingredienteService.listarTodos();
+  }
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Ingrediente> buscar(@PathVariable Integer id) {
-		Ingrediente ingrediente = ingredienteService.buscarPorId(id);
-		return ResponseEntity.ok().body(ingrediente);
-	}
+  @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+  public ResponseEntity<Ingrediente> buscar(@PathVariable Integer id) {
+    Ingrediente ingrediente = ingredienteService.buscarPorId(id);
+    return ResponseEntity.ok().body(ingrediente);
+  }
 
-	@RequestMapping(value = "nome/{nome}", method = RequestMethod.GET)
-	public Ingrediente buscarIngredienteNome(@PathVariable String nome) {
-		return ingredienteService.buscarPorNome(nome);
-	}
+  @RequestMapping(value = "nome/{nome}", method = RequestMethod.GET)
+  public Ingrediente buscarIngredienteNome(@PathVariable String nome) {
+    return ingredienteService.buscarPorNome(nome);
+  }
 
-	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	public Ingrediente salvar(@Valid @RequestBody Ingrediente ingrediente) {
-		return ingredienteService.salvarIngrediente(ingrediente);
-	}
+  @PostMapping
+  @ResponseStatus(HttpStatus.CREATED)
+  public Ingrediente salvar(@Valid @RequestBody Ingrediente ingrediente) {
+    return ingredienteService.salvarIngrediente(ingrediente);
+  }
 
-	@PutMapping("/{id}")
-	public ResponseEntity<Ingrediente> atualizar(@Valid @PathVariable Integer id,
-			@RequestBody Ingrediente ingrediente) {
-		ingredienteService.atualizar(ingrediente);
-		return ResponseEntity.ok(ingrediente);
-	}
+  @PutMapping("/{id}")
+  public ResponseEntity<Ingrediente> atualizar(
+      @Valid @PathVariable Integer id, @RequestBody Ingrediente ingrediente) {
+    ingredienteService.atualizar(ingrediente);
+    return ResponseEntity.ok(ingrediente);
+  }
 
-	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> apagar(@PathVariable Integer id) {
-		return ResponseEntity.noContent().build();
-	}
-
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> apagar(@PathVariable Integer id) {
+    return ResponseEntity.noContent().build();
+  }
 }

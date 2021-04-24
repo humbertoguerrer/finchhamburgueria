@@ -1,9 +1,13 @@
 package com.hgn.finchhamburgueria.controllers;
 
+import java.sql.PreparedStatement;
 import java.util.List;
 
 import javax.validation.Valid;
 
+import com.hgn.finchhamburgueria.DTO.PedidoLancheCardapioDTO;
+import com.hgn.finchhamburgueria.DTO.PedidoNovoLancheDTO;
+import com.hgn.finchhamburgueria.domain.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,31 +29,47 @@ import com.hgn.finchhamburgueria.services.PedidoService;
 @RequestMapping(value = "/pedidos")
 public class PedidoController {
 
-	@Autowired
-	private PedidoRepository pedidoRepository;
+  @Autowired private PedidoRepository pedidoRepository;
 
-	@Autowired
-	private PedidoService pedidoService;
+  @Autowired private PedidoService pedidoService;
 
-	public List<Pedido> listarTodos() {
-		return pedidoRepository.findAll();
-	}
+  public List<Pedido> listarTodos() {
+    return pedidoRepository.findAll();
+  }
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Pedido> buscar(@PathVariable Integer id) {
-		Pedido pedido = pedidoService.buscarPorId(id);
-		return ResponseEntity.ok().body(pedido);
-	}
+  @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+  public ResponseEntity<Pedido> buscar(@PathVariable Integer id) {
+    Pedido pedido = pedidoService.buscarPorId(id);
+    return ResponseEntity.ok().body(pedido);
+  }
 
-	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	public Pedido salvar(@Valid @RequestBody Pedido pedido) {
-		Pedido novoPedido = pedidoService.salvarPedido(pedido);
-		return pedidoService.salvarPedido(novoPedido);
-	}
+  @RequestMapping(path = "pedidoCliente/{nome}", method = RequestMethod.GET)
+  public Pedido buscarPedidoCliente(@PathVariable String nome) {
+    return pedidoService.buscarPorNome(nome);
+  }
 
-	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> apagarPedido(@PathVariable Integer id) {
-		return ResponseEntity.noContent().build();
-	}
+//  @PostMapping
+//  @ResponseStatus(HttpStatus.CREATED)
+//  public Pedido salvar(@Valid @RequestBody Pedido pedido) {
+//    return pedidoService.salvarPedido(pedido);
+//  }
+
+  @PostMapping
+  @ResponseStatus(HttpStatus.CREATED)
+  public Pedido salvar(@RequestBody PedidoLancheCardapioDTO pedidoCardapioDTO) {
+    Pedido pedido = pedidoService.cardapioDTO(pedidoCardapioDTO);
+    return pedidoService.salvarPedido(pedido);
+  }
+
+    @RequestMapping(value = "/novoLanche", method = RequestMethod.POST)
+  	@ResponseStatus(HttpStatus.CREATED)
+  	public Pedido salvar(@RequestBody PedidoNovoLancheDTO pedidoNovoLancheDTO) {
+  		Pedido pedido = pedidoService.novoLancheDTO(pedidoNovoLancheDTO);
+  		return pedidoService.salvarPedido(pedido);
+  	}
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> apagarPedido(@PathVariable Integer id) {
+    return ResponseEntity.noContent().build();
+  }
 }

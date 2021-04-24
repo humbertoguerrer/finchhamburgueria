@@ -10,4 +10,6 @@ public interface PedidoRepository extends JpaRepository<Pedido, Integer> {
 
 	Pedido findPedidoById(Integer id);
 
+	Pedido findPedidoByCliente(String nome);
+
 }
