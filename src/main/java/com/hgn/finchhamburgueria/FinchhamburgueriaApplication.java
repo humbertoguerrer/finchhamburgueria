@@ -36,8 +36,8 @@ public class FinchhamburgueriaApplication implements CommandLineRunner {
 
     Ingrediente alface = new Ingrediente(null, "alface", 0.40);
     Ingrediente bacon = new Ingrediente(null, "bacon", 2.00);
-    Ingrediente carne = new Ingrediente(null, "carne", 0.80);
-    Ingrediente ovo = new Ingrediente(null, "ovo", 0.40);
+    Ingrediente carne = new Ingrediente(null, "carne", 3.00);
+    Ingrediente ovo = new Ingrediente(null, "ovo", 0.80);
     Ingrediente queijo = new Ingrediente(null, "queijo", 1.50);
 
     ingredienteRepository.save(alface);
@@ -84,7 +84,7 @@ public class FinchhamburgueriaApplication implements CommandLineRunner {
 
     //////////////////////////////////////
 
-    Cliente humberto = new Cliente(null, "Humberto", "8645314");
+    Cliente humberto = new Cliente(null, "humberto", "8645314");
     clienteRepository.save(humberto);
     Pedido pedido = new Pedido(null, humberto);
     pedido.getLanches().add(xEggBacon);

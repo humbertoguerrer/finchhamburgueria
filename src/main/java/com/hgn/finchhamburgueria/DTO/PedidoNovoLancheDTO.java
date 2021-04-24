@@ -1,7 +1,5 @@
 package com.hgn.finchhamburgueria.DTO;
 
-import com.hgn.finchhamburgueria.domain.Ingrediente;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

@@ -8,8 +8,5 @@ import com.hgn.finchhamburgueria.domain.Cliente;
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
 
-	Cliente findClienteByNome(String nome);
-
-	boolean existsById(Integer id);
-
+  Cliente findClienteByNome(String nome);
 }

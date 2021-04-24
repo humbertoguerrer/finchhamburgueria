@@ -58,8 +58,12 @@ public class Pedido implements Serializable {
     return precoPedido;
   }
 
-  public void setPrecoPedido(Double precoPedido) {
-    this.precoPedido = precoPedido;
+  public void setPrecoPedido(List<Lanche> lanches) {
+    Double soma = 0.0;
+    for (Lanche lanche : lanches) {
+      soma += lanche.getPreco();
+    }
+    this.precoPedido = soma;
   }
 
   public List<Lanche> getLanches() {

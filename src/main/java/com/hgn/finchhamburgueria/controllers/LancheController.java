@@ -1,17 +1,14 @@
 package com.hgn.finchhamburgueria.controllers;
 
-import java.util.List;
-
-import javax.validation.Valid;
-
-import com.hgn.finchhamburgueria.domain.Ingrediente;
+import com.hgn.finchhamburgueria.domain.Lanche;
+import com.hgn.finchhamburgueria.services.LancheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.hgn.finchhamburgueria.domain.Lanche;
-import com.hgn.finchhamburgueria.services.LancheService;
+import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/lanches")
@@ -49,7 +46,8 @@ public class LancheController {
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<Void> apagarLanche(@PathVariable Integer id) {
+  public ResponseEntity<Void> apagar(@PathVariable Integer id) {
+    lancheService.apagar(id);
     return ResponseEntity.noContent().build();
   }
 }

@@ -27,6 +27,7 @@ public class Lanche implements Serializable {
       inverseJoinColumns = {@JoinColumn(name = "pedido_id")})
   private List<Pedido> pedido;
 
+ // @JsonIgnore
   @ManyToMany
   @JoinTable(
       name = "lanche_ingredientes",
