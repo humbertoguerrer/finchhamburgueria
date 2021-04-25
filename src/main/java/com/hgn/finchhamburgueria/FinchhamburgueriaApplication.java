@@ -83,12 +83,5 @@ public class FinchhamburgueriaApplication implements CommandLineRunner {
     lancheRepository.save(xEggBacon);
 
     //////////////////////////////////////
-
-    Cliente humberto = new Cliente(null, "humberto", "8645314");
-    clienteRepository.save(humberto);
-    Pedido pedido = new Pedido(null, humberto);
-    pedido.getLanches().add(xEggBacon);
-    pedido.getLanches().add(xEgg);
-    pedidoRepository.save(pedido);
   }
 }

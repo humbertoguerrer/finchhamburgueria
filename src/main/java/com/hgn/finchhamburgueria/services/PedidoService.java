@@ -52,12 +52,12 @@ public class PedidoService {
   public Pedido novoLancheDTO(PedidoNovoLancheDTO pedidoNovoLancheDTO) {
     Cliente cliente = clienteService.buscarPorId(pedidoNovoLancheDTO.getClienteId());
     Lanche lanche = new Lanche(null, null);
-    lancheService.salvar(lanche);
     for (Integer ingredienteId : pedidoNovoLancheDTO.getIngredientesId()) {
       Ingrediente ingrediente = ingredienteService.buscarPorId(ingredienteId);
       lanche.getIngredientes().add(ingrediente);
-      lanche.setPreco(lanche.getIngredientes());
     }
+    lanche.setPreco(lanche.getIngredientes());
+    lancheService.salvar(lanche);
     Pedido pedido = new Pedido(null, cliente);
     pedido.getLanches().add(lanche);
     pedido.setPrecoPedido(pedido.getLanches());

@@ -65,15 +65,8 @@ public class Lanche implements Serializable {
     Double soma = 0.0;
     for (Ingrediente ingrediente : ingredientes) {
       soma += ingrediente.getPreco();
-      if (ingrediente.getId() == 1 && ingrediente.getId() != 2) {
-        this.preco = soma * 0.10;
-//      } else if (ingrediente.getId() == 3 || ingrediente.getId() == 5) {
-//        if (ingrediente.getQtdIngrediente() >= 3 && ingrediente.getQtdIngrediente() % 3 == 0) {
-//          Integer promocaoIngredientes = (ingrediente.getQtdIngrediente() / 3) * 2;
-//          this.preco = preco + (promocaoIngredientes * ingrediente.getPreco());
-//        }
-      }
     }
+    this.preco = soma;
   }
 
   public List<Pedido> getPedido() {
