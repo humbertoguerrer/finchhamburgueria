@@ -35,12 +35,12 @@ public class PedidoController {
     return pedidoService.salvarPedido(pedido);
   }
 
-    @RequestMapping(value = "/novoLanche", method = RequestMethod.POST)
-  	@ResponseStatus(HttpStatus.CREATED)
-  	public Pedido salvar(@RequestBody PedidoNovoLancheDTO pedidoNovoLancheDTO) {
-  		Pedido pedido = pedidoService.novoLancheDTO(pedidoNovoLancheDTO);
-  		return pedidoService.salvarPedido(pedido);
-  	}
+  @RequestMapping(value = "/novoLanche", method = RequestMethod.POST)
+  @ResponseStatus(HttpStatus.CREATED)
+  public Pedido salvar(@RequestBody PedidoNovoLancheDTO pedidoNovoLancheDTO) {
+    Pedido pedido = pedidoService.novoLancheDTO(pedidoNovoLancheDTO);
+    return pedidoService.salvarPedido(pedido);
+  }
 
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> apagar(@PathVariable Integer id) {

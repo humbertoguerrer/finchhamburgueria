@@ -27,7 +27,6 @@ public class Ingrediente implements Serializable {
 
   public Ingrediente() {}
 
-
   public Ingrediente(Integer id, String nome, Double preco) {
     this.id = id;
     this.nome = nome;
@@ -57,4 +56,5 @@ public class Ingrediente implements Serializable {
   public void setPreco(Double preco) {
     this.preco = preco;
   }
+
 }

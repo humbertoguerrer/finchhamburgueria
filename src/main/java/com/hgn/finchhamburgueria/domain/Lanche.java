@@ -2,11 +2,10 @@ package com.hgn.finchhamburgueria.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.*;
 
 @Entity
 public class Lanche implements Serializable {
@@ -27,7 +26,7 @@ public class Lanche implements Serializable {
       inverseJoinColumns = {@JoinColumn(name = "pedido_id")})
   private List<Pedido> pedido;
 
- // @JsonIgnore
+  // @JsonIgnore
   @ManyToMany
   @JoinTable(
       name = "lanche_ingredientes",
@@ -66,8 +65,15 @@ public class Lanche implements Serializable {
     Double soma = 0.0;
     for (Ingrediente ingrediente : ingredientes) {
       soma += ingrediente.getPreco();
+      if (ingrediente.getId() == 1 && ingrediente.getId() != 2) {
+        this.preco = soma * 0.10;
+//      } else if (ingrediente.getId() == 3 || ingrediente.getId() == 5) {
+//        if (ingrediente.getQtdIngrediente() >= 3 && ingrediente.getQtdIngrediente() % 3 == 0) {
+//          Integer promocaoIngredientes = (ingrediente.getQtdIngrediente() / 3) * 2;
+//          this.preco = preco + (promocaoIngredientes * ingrediente.getPreco());
+//        }
+      }
     }
-    this.preco = soma;
   }
 
   public List<Pedido> getPedido() {
