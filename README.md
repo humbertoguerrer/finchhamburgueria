@@ -141,5 +141,6 @@ Todos os endpoints disponibilizados podem ser analisados através do endereço f
 O que faltou/poderia ser melhorado com o tempo:
 - Implementação de lógica de descontos que não foi implementada;
 - Orquestração docker com instância automática de banco de dados;
-- Valida de campos;
+- Validação de campos;
 - Tratamento de exceções (não foi finalizado).
+- Testes unitários e integração.
